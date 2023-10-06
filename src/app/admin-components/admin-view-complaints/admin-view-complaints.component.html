@@ -1,9 +1,10 @@
 <div class="container-fluid mt-5">
     <div class="row">
         <div class="col-lg">
+            <h4 class="text-dark text-center fs-3">View User Complaints</h4>
             <ag-grid-angular id="myGrid" class="ag-theme-alpine col-lg col-md" 
-                [rowData]="rowData$ | async" [columnDefs]="colDefs" [defaultColDef]="defaultColDef" [animateRows]="true"
-                [rowSelection]="'multiple'" [pagination]="true"  [domLayout]="domLayout"  [getRowHeight]="getRowHeight">
+                [rowData]="rowData" [columnDefs]="colDefs" [defaultColDef]="defaultColDef" [animateRows]="true"
+                [rowSelection]="'multiple'" [pagination]="true"  [domLayout]="domLayout" [getRowHeight]="getRowHeight">
             </ag-grid-angular>
         </div>
     </div>

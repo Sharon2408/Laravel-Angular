@@ -81,7 +81,9 @@ export class SignupComponent implements OnInit {
     this.district = new FormControl('', [Validators.required]);
     this.zone = new FormControl('', [Validators.required]);
     this.area = new FormControl('', [Validators.required]);
-    this.connectionNumber = new FormControl('', [Validators.required]);
+    this.connectionNumber = new FormControl('', [Validators.required,Validators.pattern(
+      '^[0-9]{2}$'
+    ),]);
 
     this.complaint.getDistrict().subscribe((response) => {
       this.districts = response;

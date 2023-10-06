@@ -1,6 +1,6 @@
-<div class="container mt-5">
+<div class="container mt-3">
     <div class="row justify-content-center">
-        <div class="col-lg-6 shadow-lg mt-5 mb-5 text-center rounded-3  col-sm-12">
+        <div id="login" class="col-lg-6 shadow-lg  text-center rounded-3  col-sm-12">
             <p-toast position="top-center" key="tc"></p-toast> 
             <h3 class="text-center p-3">Sign-Up</h3>
             <form class="example-form container" [formGroup]="signupForm" (ngSubmit)="signupForm.valid && onSubmit()" novalidate>
@@ -53,8 +53,10 @@
                  <mat-form-field class="example-full-width form-group">
                     <mat-label>Connection Number</mat-label>
                     <input id="doorno" matInput [(ngModel)]="connectionNo" formControlName="connectionNumber" [errorStateMatcher]="matcher"  >
-                    <mat-error>
-                        Connection No is required</mat-error>
+                        <mat-error *ngIf="connectionNumber.hasError('pattern') && !connectionNumber.hasError('required')">Please
+                            enter a valid Connection No</mat-error>
+                            <mat-error *ngIf="connectionNumber.hasError('required')">
+                                Connection No is required</mat-error>
                 </mat-form-field>
                 <div class="row d-flex">
                     <div class="col">
@@ -97,7 +99,7 @@
                         <mat-form-field class="example-full-width form-group">
                             <mat-label>Password</mat-label>
                             <input type="password" id="password" matInput formControlName="password"
-                                [errorStateMatcher]="matcher" [type]="hide ? 'password' : 'text'">
+                                [errorStateMatcher]="matcher">
                             <mat-hint *ngIf="password.valid">Looks Strong Like You!</mat-hint>
                             <mat-error *ngIf="password.hasError('pattern') && !password.hasError('required')">Password
                                 must include 1 uppercase, 1 special symbol and 1 number</mat-error>
@@ -115,7 +117,7 @@
                         <mat-form-field class="example-full-width form-group">
                             <mat-label>Confirm Password</mat-label>
                             <input type="password" matInput formControlName="confirm_password"
-                                [errorStateMatcher]="matcher" [type]="c_hide ? 'password' : 'text'">
+                                [errorStateMatcher]="matcher" >
                             <mat-error *ngIf="confirm_password.hasError('required')">Required Field</mat-error>
                             <mat-error *ngIf="confirm_password.hasError('matching')">Passwords not
                                 matched</mat-error>

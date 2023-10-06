@@ -18,22 +18,23 @@ export class LinemanService {
   complaint_id = new BehaviorSubject<number>(0);
   currentComplaintId = this.complaint_id.asObservable();
 
-  linemaRegistration(form: Registration) {
+  linemanRegistration(form: Registration) {
 
     return this.http.post<Registration[]>(`${this.baseUrl}/lineman-register`, form).subscribe(
       {
         next: () => {
-          this.router.navigate(['/'])
           this.alert.add({
             key: 'tc',
             severity: 'success',
             summary: 'lineman registered Successfully',
           });
+          setTimeout(() => {
+            this.router.navigate(['/'])
+          }, 800);
         },
         error: (error) => {
-
-          if (error.status === 422) {
-            console.log(error)
+       
+          if (error.status === 422) { 
             this.alert.add({
               key: 'tc',
               severity: 'error',
@@ -46,7 +47,6 @@ export class LinemanService {
             }, 1000)
           }
           else {
-            console.log(error)
             this.alert.add({
               key: 'tc',
               severity: 'error',

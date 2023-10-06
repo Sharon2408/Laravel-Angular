@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Authorisation, Registration, Login } from 'src/Models/registration';
@@ -10,10 +10,11 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class RegistrationService {
+export class RegistrationService implements OnInit{
 
   constructor(private http: HttpClient, private alert: MessageService, private router: Router) { }
   baseUrl = environment.baseUrl;
+  user_name!:string;
 
   public islogged = new BehaviorSubject<boolean>(this.get())
   authStatus = this.islogged.asObservable();
@@ -21,6 +22,9 @@ export class RegistrationService {
     this.islogged.next(value);
   }
 
+  ngOnInit(): void {
+   
+  }
 
 
   signUp(form: Registration) {
@@ -28,12 +32,14 @@ export class RegistrationService {
     return this.http.post<Registration[]>(`${this.baseUrl}/user-register`, form).subscribe(
       {
         next: () => {
-          this.router.navigate(['/'])
           this.alert.add({
             key: 'tc',
             severity: 'success',
             summary: 'User Created Successfully',
           });
+          setTimeout(()=>{
+            this.router.navigate(['/'])
+          },1300)
         },
         error: (error) => {
 
@@ -48,7 +54,7 @@ export class RegistrationService {
 
             setTimeout(() => {
               this.router.navigate(['login'])
-            }, 1000)
+            }, 1300)
           }
           else {
             console.log(error)
@@ -72,11 +78,17 @@ export class RegistrationService {
       {
 
         next: (res) => {
-          this.router.navigate(['/']);
           this.set(res.authorisation);
           this.get();
           this.changeAuthStatus(true)
-
+          this.alert.add({
+            key: 'tc',
+            severity: 'success',
+            summary: 'Welcome'+' '+this.user_name,
+          });
+          setTimeout(()=>{
+            this.router.navigate(['']);
+          },1000)
         },
         error: (error) => {
           if (error.status === 500) {
@@ -110,7 +122,14 @@ export class RegistrationService {
           this.set(res.authorisation);
           this.get();
           this.changeAuthStatus(true)
-
+          this.alert.add({
+            key: 'tc',
+            severity: 'success',
+            summary: 'Welcome'+' '+this.user_name,
+          });
+          setTimeout(()=>{
+            this.router.navigate(['/']);
+          },1000)
         },
         error: (error) => {
           console.log(error)
@@ -144,6 +163,11 @@ export class RegistrationService {
   get() {
     const token = localStorage.getItem('token');
     if (token) {
+        const decryptToken = token.split('.')[1];
+        const decode = JSON.parse(atob(decryptToken));
+        if (decode) {
+          this.user_name = decode.name;
+        }
         return true
     }
     return false;

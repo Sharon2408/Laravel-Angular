@@ -14,9 +14,9 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./admin-view-complaints.component.css']
 })
 export class AdminViewComplaintsComponent implements OnInit {
-  constructor(private http: HttpClient,private datePipe:DatePipe) { }
+  constructor(private http: HttpClient, private datePipe: DatePipe) { }
   baseUrl = environment.baseUrl;
-  rowData$!: Observable<Complaint[]>;
+  rowData: Complaint[] = [];
   public domLayout: DomLayoutType = 'autoHeight';
   private gridApi!: GridApi;
 
@@ -39,23 +39,19 @@ export class AdminViewComplaintsComponent implements OnInit {
     },
     { field: 'status', headerName: 'Status', },
     { field: 'solved_date', headerName: 'Solved Date', },
-    { field: 'remark', headerName: 'Remark', },
-    { field: 'solvedBy', headerName: 'Solved By', },
-
   ];
 
   defaultColDef: ColDef = {
-    sortable: true, filter: true
+    sortable: true, filter: true,
+    flex: 1,
+    minWidth: 250,
+    resizable: true,
   }
-
-
-
   ngOnInit(): void {
-     this.rowData$ = this.http.get<Complaint[]>(`${this.baseUrl}/admincomplaints`)
+    this.http.get<Complaint[]>(`${this.baseUrl}/admincomplaints`).subscribe({
+      next: (res) => { this.rowData = res }
+    })
   }
-
-  
-
   setAutoHeight() {
     this.gridApi.setDomLayout('autoHeight');
     (document.querySelector<HTMLElement>('#myGrid')! as any).style.height = '';
@@ -69,7 +65,7 @@ export class AdminViewComplaintsComponent implements OnInit {
     else if (params.node.level === 1) {
       return 60;
     } else
-    return 40;
+      return 40;
   };
 
 }

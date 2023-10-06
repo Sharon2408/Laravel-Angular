@@ -38,7 +38,6 @@ export class LinemanViewTaskComponent {
         statusName: params.data.status
       }),
     },
-    { field: 'remark', headerName: 'Remark', editable: true, },
 
   ];
 
@@ -52,11 +51,6 @@ export class LinemanViewTaskComponent {
 
   ngOnInit(): void {
     this.getTasksLineman();
-
-
-    // this.lineman.getStatus().subscribe((res) => { 
-    //   console.log(res)
-    //   this.status = res })
   }
 
   setAutoHeight() {

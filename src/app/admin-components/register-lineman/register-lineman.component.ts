@@ -38,7 +38,6 @@ export class RegisterLinemanComponent {
   zoneCode!: string;
   areaCode!: string;
   linemanId!: string;
-  linemanNo!: string;
   user_id!: number;
 
   // Dropdown data
@@ -76,7 +75,6 @@ export class RegisterLinemanComponent {
     this.district = new FormControl('', [Validators.required]);
     this.zone = new FormControl('', [Validators.required]);
     this.area = new FormControl('', [Validators.required]);
-    this.linemanNumber = new FormControl('', [Validators.required]);
 
     this.complaint.getDistrict().subscribe((response) => {
       this.districts = response;
@@ -91,16 +89,15 @@ export class RegisterLinemanComponent {
       password: this.password,
       confirm_password: this.confirm_password,
       phone_no: this.phoneno,
-      linemanNumber:this.linemanNumber
+     
       
     });
   }
 
   onSubmit() {
-    console.log(this.lineManForm.value)
     this.linemanCode();
     this.lineManForm.value.lineman_id = this.linemanId
-    return this.linemanRegisteration.linemaRegistration(this.lineManForm.value);
+    return this.linemanRegisteration.linemanRegistration(this.lineManForm.value);
   }
 
   getZone(code: string) {
@@ -132,7 +129,7 @@ export class RegisterLinemanComponent {
   }
 
   linemanCode() {
-    this.linemanId = this.districtCode + this.zoneCode + this.areaCode + this.linemanNo;
+    this.linemanId = this.districtCode + this.zoneCode + this.areaCode;
 
   }
 }

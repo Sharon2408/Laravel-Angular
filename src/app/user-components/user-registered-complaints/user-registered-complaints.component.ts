@@ -48,7 +48,10 @@ colDefs: ColDef[] = [
 ];
 
 defaultColDef: ColDef = {
-  sortable: true, filter: true
+  sortable: true, filter: true,
+  flex: 1,
+  minWidth: 250,
+  resizable: true,
 }
 
 setAutoHeight() {

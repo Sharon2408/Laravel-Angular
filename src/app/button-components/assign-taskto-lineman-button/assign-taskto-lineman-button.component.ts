@@ -7,7 +7,7 @@ import { LinemanService } from 'src/Services/lineman.service';
 
 @Component({
   selector: 'app-assign-taskto-lineman-button',
-  template: `<button mat-raised-button color="primary" (click)="onClick($event)">Assign</button>`,
+  template: `<button type="button" class="btn btn-primary" (click)="onClick($event)">Assign</button>`,
  
 })
 export class AssignTasktoLinemanButtonComponent implements OnInit, ICellRendererAngularComp {

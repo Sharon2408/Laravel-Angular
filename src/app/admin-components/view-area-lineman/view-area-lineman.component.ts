@@ -18,7 +18,7 @@ export class ViewAreaLinemanComponent implements OnInit {
   public domLayout: DomLayoutType = 'autoHeight';
 
   colDefs: ColDef[] = [
-    { field: 'id' },
+    { field: 'id',headerName:'Lineman Id' },
     { field: 'lineman_id', headerName: 'Region Code', },
     { field: 'name', headerName: 'Name', },
     { field: 'phone_no', headerName: 'Phone Number', },
@@ -31,7 +31,10 @@ export class ViewAreaLinemanComponent implements OnInit {
   ];
 
   defaultColDef: ColDef = {
-    sortable: true, filter: true
+    sortable: true, filter: true,
+    flex: 1,
+    minWidth: 250,
+    resizable: true,
   }
   gridApi!: GridApi;
 

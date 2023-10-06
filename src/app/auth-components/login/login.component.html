@@ -1,6 +1,6 @@
-<div class="container mt-5">
+<div class="container mt-3">
     <div class="row justify-content-center">
-        <div class="col-lg-6 shadow-lg mt-5 mb-5 text-center rounded-3  col-sm-12">
+        <div id="login" class="col-lg-6 shadow-lg  text-center rounded-3 bg-light col-sm-12">
             <p-toast position="top-center" key="tc"></p-toast>
             <h3 class="text-center p-3">Log In</h3>
             <form class="example-form container" [formGroup]="loginForm" (ngSubmit)="loginForm.valid && onSubmit()"
@@ -22,7 +22,7 @@
                         <mat-form-field class="example-full-width form-group">
                             <mat-label>Password</mat-label>
                             <input type="password" id="password" matInput formControlName="password"
-                                [errorStateMatcher]="matcher" [type]="hide ? 'password' : 'text'">
+                                [errorStateMatcher]="matcher" >
                             <mat-hint *ngIf="password.valid">Looks Strong Like You!</mat-hint>
                             <mat-error *ngIf="password.hasError('pattern') && !password.hasError('required')">Password
                                 must include 1 uppercase, 1 special symbol and 1 number</mat-error>
