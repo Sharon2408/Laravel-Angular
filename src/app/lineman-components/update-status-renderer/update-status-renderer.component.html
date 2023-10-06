@@ -1,0 +1,11 @@
+<mat-form-field>
+    <mat-label *ngIf="hide">{{ statusName }}</mat-label>
+    <mat-select>
+        <ng-container *ngFor="let status of status">
+        <mat-option *ngIf="status.id < 4"  (click)="onClick(status.id)"
+            (onSelectionChange)="statusName=status.status_name;hide=false;" [value]="status.id">{{ status.status_name
+            }}
+        </mat-option>
+    </ng-container>
+    </mat-select>
+</mat-form-field>

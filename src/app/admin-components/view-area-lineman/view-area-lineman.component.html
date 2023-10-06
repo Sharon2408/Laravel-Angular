@@ -1,0 +1,11 @@
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-lg">
+            <ag-grid-angular id="myGrid" class="ag-theme-alpine col-lg col-md" 
+                 [rowData]="rowData" [columnDefs]="colDefs"
+                [defaultColDef]="defaultColDef" [animateRows]="true" [rowSelection]="'multiple'" [pagination]="true"
+                [domLayout]="domLayout"  [getRowHeight]="getRowHeight">
+            </ag-grid-angular>
+        </div>
+    </div>
+</div>

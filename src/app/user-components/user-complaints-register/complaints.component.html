@@ -1,0 +1,35 @@
+<p-toast position="top-center" key="tc"></p-toast>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 shadow-lg mt-5 mb-5 text-center rounded-3  col-sm-12">
+            <h3 class="text-center p-3">Register Complaint</h3>
+            <form class="container example-form " [formGroup]="issueForm" (ngSubmit)="issueForm.valid && onSubmit()"
+                novalidate>
+                <mat-form-field class="example-full-width form-group">
+                    <mat-label>Connection No</mat-label>
+                    <input  matInput [(ngModel)]="consumerId" formControlName="consumerNumber" [errorStateMatcher]="matcher"  >
+                    <mat-error>
+                        Connection No is required</mat-error>
+                </mat-form-field>
+                <mat-form-field class="example-full-width form-group">
+                    <mat-label>Issue Description</mat-label>
+                    <textarea matInput formControlName="issue_details" rows="2"
+                        [errorStateMatcher]="matcher"></textarea>
+                    <mat-error>
+                        Issue Description is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width form-group">
+                    <mat-label>Landmark</mat-label>
+                    <input matInput formControlName="landmark" [errorStateMatcher]="matcher">
+                    <mat-error>
+                        Landmark is required</mat-error>
+                </mat-form-field>
+                <div class="col pt-4 pb-4">
+                    <button mat-raised-button color="primary" class="example-full-width" type="submit">Submit</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

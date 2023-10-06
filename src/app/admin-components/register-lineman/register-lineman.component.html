@@ -1,0 +1,131 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 shadow-lg mt-5 mb-5 text-center rounded-3  col-sm-12">
+            <p-toast position="top-center" key="tc"></p-toast> 
+            <h3 class="text-center p-3">Line-Man Registeration</h3>
+            <form class="example-form container" [formGroup]="lineManForm" (ngSubmit)="lineManForm.valid && onSubmit()" novalidate>
+                <div class="row d-flex">
+                    <div class="col-12">
+                        <mat-form-field class="example-full-width form-group">
+                            <mat-label>District</mat-label>
+                            <mat-select  formControlName="district" [errorStateMatcher]="matcher"
+                                [(ngModel)]="selectedDistrict">
+                                <ng-container *ngFor="let district of districts">
+                                    <mat-option [value]="district.id" (click)="getZone(district.district_code)">{{ district.district_name
+                                        }}
+                                    </mat-option>
+                                </ng-container>
+                            </mat-select>
+
+                            <mat-error>
+                                District is required</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row d-flex">
+                    <div class="col-12">
+                        <mat-form-field class="example-full-width form-group">
+                            <mat-label>Zone</mat-label>
+                            <mat-select formControlName="zone" [errorStateMatcher]="matcher" [(ngModel)]="selectedZone">
+                                <ng-container *ngFor="let zone of zones">
+                                    <mat-option *ngIf="zone.district_id == selectedDistrict" [value]="zone.id"
+                                        (click)="getArea(zone.zone_code)">{{
+                                        zone.zone }} 
+                                    </mat-option>
+                                </ng-container>
+                            </mat-select>
+                            <mat-error>
+                                Zone is required</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <mat-form-field class="example-full-width form-group">
+                    <mat-label>Area</mat-label>
+                    <mat-select formControlName="area" [errorStateMatcher]="matcher">
+                        <ng-container *ngFor="let area of areas">
+                            <mat-option *ngIf="area.zone_id == selectedZone" [value]="area.id" (click)="getAreaCode(area.area_code)" >{{ area.area }}
+                            </mat-option>
+                        </ng-container>
+                    </mat-select>
+                    <mat-error>
+                        Area is required</mat-error>
+                </mat-form-field>
+                <div class="row d-flex">
+                    <div class="col">
+                        <mat-form-field class="example-full-width form-group">
+                            <mat-label>Name</mat-label>
+                            <input matInput formControlName="name" [errorStateMatcher]="matcher">
+                            <mat-error *ngIf="name.hasError('pattern') && !name.hasError('required')">Please
+                                enter a valid Name</mat-error>
+                            <mat-error *ngIf="name.hasError('required')">
+                                Name is required</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row d-flex">
+                    <div class="col">
+                        <mat-form-field class="example-full-width form-group">
+                            <mat-label>Email</mat-label>
+                            <input matInput formControlName="email" [errorStateMatcher]="matcher">
+                            <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">Please enter a
+                                valid email address</mat-error>
+                            <mat-error *ngIf="email.hasError('required')">
+                                Email is required</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row d-flex">
+                    <div class="col">
+                        <mat-form-field class="example-full-width form-group">
+                            <mat-label>Phone No</mat-label>
+                            <input matInput formControlName="phone_no" [errorStateMatcher]="matcher">
+                            <mat-error *ngIf="phoneno.hasError('pattern') && !phoneno.hasError('required')">Please enter a
+                                valid phone number</mat-error>
+                            <mat-error *ngIf="phoneno.hasError('required')">
+                                phone number is required</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row d-flex">
+                    <div class="col">
+                        <mat-form-field class="example-full-width form-group">
+                            <mat-label>Password</mat-label>
+                            <input type="password" id="password" matInput formControlName="password"
+                                [errorStateMatcher]="matcher" [type]="hide ? 'password' : 'text'">
+                            <mat-hint *ngIf="password.valid">Looks Strong Like You!</mat-hint>
+                            <mat-error *ngIf="password.hasError('pattern') && !password.hasError('required')">Password
+                                must include 1 uppercase, 1 special symbol and 1 number</mat-error>
+                            <mat-error *ngIf="password.hasError('required')">
+                                Password is required</mat-error>
+                            <a mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                                [attr.aria-pressed]="hide">
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </a>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row d-flex">
+                    <div class="col-12">
+                        <mat-form-field class="example-full-width form-group">
+                            <mat-label>Confirm Password</mat-label>
+                            <input type="password" matInput formControlName="confirm_password"
+                                [errorStateMatcher]="matcher" [type]="c_hide ? 'password' : 'text'">
+                            <mat-error *ngIf="confirm_password.hasError('required')">Required Field</mat-error>
+                            <mat-error *ngIf="confirm_password.hasError('matching')">Passwords not
+                                matched</mat-error>
+                            <a mat-icon-button matSuffix (click)="c_hide = !c_hide" [attr.aria-label]="'Hide password'"
+                                [attr.aria-pressed]="hide">
+                                <mat-icon>{{c_hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </a>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col pb-5">
+                    <button mat-raised-button color="primary" type="submit" class="example-full-width">
+                        Register
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
