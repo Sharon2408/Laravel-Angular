@@ -30,10 +30,10 @@ export class LinemanService {
           });
           setTimeout(() => {
             this.router.navigate(['/'])
-          }, 800);
+          }, 500);
         },
         error: (error) => {
-       
+       console.log(error);
           if (error.status === 422) { 
             this.alert.add({
               key: 'tc',
