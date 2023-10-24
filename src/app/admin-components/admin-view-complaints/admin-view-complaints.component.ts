@@ -18,13 +18,14 @@ export class AdminViewComplaintsComponent implements OnInit {
   baseUrl = environment.baseUrl;
   rowData: Complaint[] = [];
   public domLayout: DomLayoutType = 'autoHeight';
+  public paginationPageSize = 5;
   private gridApi!: GridApi;
 
   colDefs: ColDef[] = [
     { field: 'id', hide: true },
     { field: 'consumer_id', headerName: 'Consumer Id', },
     { field: 'issue_details', headerName: 'Issue Details', },
-    { field: 'landmark', headerName: 'Land Mark', },
+    { field: 'land_mark', headerName: 'Land Mark', },
     {
       headerName: 'View Lineman', cellRenderer: AssignbuttonComponent,
       cellRendererParams: (params: ICellRendererParams) => ({
@@ -48,7 +49,7 @@ export class AdminViewComplaintsComponent implements OnInit {
     resizable: true,
   }
   ngOnInit(): void {
-    this.http.get<Complaint[]>(`${this.baseUrl}/admincomplaints`).subscribe({
+    this.http.get<Complaint[]>(`${this.baseUrl}/complaint`).subscribe({
       next: (res) => { this.rowData = res }
     })
   }
